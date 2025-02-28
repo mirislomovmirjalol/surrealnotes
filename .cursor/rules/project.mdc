@@ -1,0 +1,134 @@
+---
+description: project overview
+globs: 
+alwaysApply: true
+---
+# SurrealNotes Project Overview
+
+## Architecture Overview
+
+- Local-first note-taking app using SurrealDB with IndexedDB
+- React + Vite for frontend
+- Monorepo structure with shared UI components
+- Minimal and clean implementation
+
+## Core Features
+
+1. Notes Management
+
+   - Create, read, update, delete notes
+   - Real-time saving
+   - Rich text editing with TipTap
+   - Title and content management
+   - Search functionality
+
+2. Data Layer
+
+   - Local-first using SurrealDB
+   - IndexedDB storage
+   - React Query for state management
+   - Optimistic updates
+
+3. UI/UX
+   - Clean, minimal interface
+   - Responsive design
+   - Dark/light mode support
+   - Keyboard shortcuts
+   - Instant search
+
+## Implementation Rules
+
+### 1. State Management
+
+- Use React Query for server state
+- Use React's built-in state for UI state
+- Implement optimistic updates for better UX
+- Keep state logic close to where it's used
+
+### 2. Component Structure
+
+- Components should be single-responsibility
+- Use composition over inheritance
+- Keep components small and focused
+- Follow atomic design principles:
+  - atoms: basic UI components
+  - molecules: combinations of atoms
+  - organisms: complex UI sections
+  - templates: page layouts
+  - pages: full pages
+
+### 3. Data Layer
+
+- All database operations in separate service files
+- Use TypeScript interfaces for data models
+- Implement error handling and loading states
+- Keep database schema simple and flat
+
+### 4. Styling
+
+- Use Tailwind CSS for styling
+- Follow ShadcnUI component patterns
+- Maintain consistent spacing and typography
+- Use CSS variables for theming
+
+### 5. Code Organization
+
+```
+src/
+├── components/        # UI components
+│   ├── notes/        # Note-related components
+│   ├── editor/       # Editor components
+│   ├── layout/       # Layout components
+│   └── ui/          # Basic UI components
+├── lib/              # Utilities and services
+│   ├── db/          # Database operations
+│   ├── hooks/       # Custom hooks
+│   └── utils/       # Helper functions
+├── types/            # TypeScript types
+└── styles/           # Global styles
+```
+
+## Implementation Roadmap
+
+### Phase 1: Core Setup
+
+### Phase 2: Basic Notes Management
+
+- [ ] Database service setup
+- [ ] Notes list component
+- [ ] Basic note editor
+- [ ] Create/delete operations
+- [ ] Real-time saving
+
+### Phase 3: Rich Text Editor
+
+- [ ] TipTap integration
+- [ ] Basic formatting
+- [ ] Markdown support
+- [ ] Auto-save functionality
+
+### Phase 4: Search & Organization
+
+- [ ] Search implementation
+- [ ] Note filtering
+- [ ] Sort options
+- [ ] Tags/categories (optional)
+
+### Phase 5: Polish & Optimization
+
+- [ ] Keyboard shortcuts
+- [ ] Performance optimization
+- [ ] Error handling
+- [ ] Loading states
+- [ ] Responsive design improvements
+
+## Best Practices
+
+1. Write self-documenting code
+2. Use TypeScript strictly
+3. Implement error boundaries
+4. Add loading states for all async operations
+5. Use proper semantic HTML
+6. Ensure keyboard accessibility
+7. Optimize re-renders
+8. Keep bundle size minimal
