@@ -24,15 +24,6 @@ export default function NotesPage() {
     <div className="container mx-auto px-4 py-6">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Notes</h1>
-        <Button
-          onClick={() => createNote(
-            { title: 'Untitled Note', content: '' },
-            { onSuccess: note => navigate(`/${note.id.id}`) }
-          )}
-          disabled={isPending}
-        >
-          {isPending ? 'Creating...' : 'New Note'}
-        </Button>
       </div>
 
       {notes && notes.length > 0 ? (

@@ -1,7 +1,6 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { useUpdateNote, useDeleteNote } from '@/hooks/notes'
-import { Button } from '@workspace/ui/components/button'
 import type { Note } from '@/types'
 import { useNavigate } from 'react-router-dom'
 import { DeleteConfirmModal } from './delete-confirm-modal'
@@ -16,19 +15,19 @@ export function NoteEditor({ note }: { note: Note }) {
     content: note.content,
     editorProps: {
       attributes: {
-        class: 'prose prose-sm max-w-none focus:outline-none'
+        class: 'prose prose-sm max-w-none focus:outline-none min-h-[calc(100vh-5rem)]'
       }
     },
     onUpdate: ({ editor }) => updateNote({
       ...note,
       content: editor.getHTML(),
       updatedAt: new Date().toISOString()
-    })
+    }),
   })
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between border-b pb-4">
+      <div className="flex items-center justify-between border-b pb-4 gap-2">
         <h1
           contentEditable
           suppressContentEditableWarning
@@ -42,7 +41,7 @@ export function NoteEditor({ note }: { note: Note }) {
               })
             }
           }}
-          className="text-2xl font-bold focus:outline-none border-b border-transparent focus:border-border"
+          className="text-2xl font-bold focus:outline-none border-b border-transparent focus:border-border w-full"
         >
           {note.title}
         </h1>
@@ -54,7 +53,7 @@ export function NoteEditor({ note }: { note: Note }) {
           isDeleting={isPending}
         />
       </div>
-      <EditorContent editor={editor} className="min-h-[calc(100vh-12rem)]" />
+      <EditorContent editor={editor} />
     </div>
   )
 } 
