@@ -14,7 +14,7 @@ export function NoteLayout({ children, note }: NoteLayoutProps) {
 
   return (
     <div className="h-full flex flex-col">
-      <header className="flex items-center justify-between gap-4 p-4 container mx-auto">
+      <header className="flex items-center justify-between gap-4 py-4 container mx-auto">
         <Button
           variant="outline"
           onClick={() => navigate('/')}

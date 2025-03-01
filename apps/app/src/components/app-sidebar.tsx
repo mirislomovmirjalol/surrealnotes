@@ -6,6 +6,7 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -26,16 +27,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar variant="floating" {...props}>
       <SidebarHeader>
-        <div className="flex items-center justify-between px-2">
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton size="lg" asChild>
-                <Link to="/" className="text-xl font-bold">
-                  Surreal Notes
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
+        <div className="flex items-center justify-between">
+          <SidebarMenuButton size="lg" asChild>
+            <Link to="/" className="text-xl font-bold">
+              Surreal Notes
+            </Link>
+          </SidebarMenuButton>
         </div>
         <Button
           size="sm"
@@ -50,6 +47,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
+          <SidebarGroupLabel>Notes</SidebarGroupLabel>
           <SidebarMenu className="gap-2">
             {isLoading ? (
               // Show skeletons while loading
