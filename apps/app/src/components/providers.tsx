@@ -2,6 +2,8 @@ import { fontVariables } from '@/lib/fonts.js'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useLayoutEffect, useState, type PropsWithChildren } from 'react'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ThemeProvider } from './theme-provider'
+import { SidebarProvider } from '@workspace/ui/components/sidebar'
 
 export function Providers({ children }: PropsWithChildren) {
   useLayoutEffect(() => {
@@ -12,19 +14,23 @@ export function Providers({ children }: PropsWithChildren) {
 
   const [queryClient] = useState(new QueryClient({
     defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false,
-            retry: false,
-            staleTime: 10 * (60 * 1000),
-            gcTime: 1000 * 60 * 60,
-        },
+      queries: {
+        refetchOnWindowFocus: false,
+        retry: false,
+        staleTime: 10 * (60 * 1000),
+        gcTime: 1000 * 60 * 60,
+      },
     },
-}));
+  }))
 
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ThemeProvider defaultTheme="system" storageKey="surreal-notes-theme">
+        <SidebarProvider>
+          {children}
+          <ReactQueryDevtools initialIsOpen={false} />
+        </SidebarProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   )
 } 

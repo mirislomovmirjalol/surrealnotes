@@ -14,19 +14,17 @@ export function NoteLayout({ children, note }: NoteLayoutProps) {
 
   return (
     <div className="h-full flex flex-col">
-      <header className="flex items-center gap-4 py-4 container mx-auto">
+      <header className="flex items-center justify-between gap-4 p-4 container mx-auto">
         <Button
-          variant="ghost"
+          variant="outline"
           onClick={() => navigate('/')}
         >
           <ArrowLeft className="h-4 w-4" />
           Back
         </Button>
         {note && (
-          <div className="flex-1">
-            <div className="text-sm text-muted-foreground">
-              Last edited {new Date(note.updatedAt).toLocaleDateString()}
-            </div>
+          <div className="text-sm text-muted-foreground">
+            Last edited {new Date(note.updatedAt).toLocaleDateString()}
           </div>
         )}
       </header>

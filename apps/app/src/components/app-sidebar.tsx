@@ -4,6 +4,7 @@ import { GalleryVerticalEnd, Plus } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarHeader,
   SidebarMenu,
@@ -14,6 +15,7 @@ import {
 import { Button } from "@workspace/ui/components/button"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { useCreateNote, useGetNotes } from "@/hooks/notes"
+import { ThemeToggle } from "./theme-toggle"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { mutate: createNote, isPending } = useCreateNote()
@@ -24,15 +26,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar variant="floating" {...props}>
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
-              <Link to="/" className="text-xl font-bold">
-                Surreal Notes
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <div className="flex items-center justify-between px-2">
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton size="lg" asChild>
+                <Link to="/" className="text-xl font-bold">
+                  Surreal Notes
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </div>
         <Button
           size="sm"
           onClick={() => createNote(
@@ -80,6 +84,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <ThemeToggle />
+      </SidebarFooter>
     </Sidebar>
   )
 }

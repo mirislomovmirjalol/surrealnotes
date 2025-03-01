@@ -11,7 +11,7 @@ export default function NotePage() {
     return (
       <NoteLayout>
         <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900" />
+          <div className="animate-spin rounded-full h-8 w-8" />
         </div>
       </NoteLayout>
     )
@@ -29,7 +29,7 @@ export default function NotePage() {
 
   return (
     <NoteLayout note={note}>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <NoteEditor note={note} />
       </div>
     </NoteLayout>
