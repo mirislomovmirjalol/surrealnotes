@@ -13,8 +13,8 @@ export function MobileMenu() {
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>
-        <Button size="icon" className="fixed bottom-4 right-4 z-50 md:hidden flex justify-center items-center">
-          <Menu className="w-4 h-4" />
+        <Button size="icon" className="fixed bottom-4 right-4 z-50 md:hidden flex justify-center items-center h-12 w-12">
+          <Menu size={32} />
         </Button>
       </DrawerTrigger>
       <DrawerContent>
