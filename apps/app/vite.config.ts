@@ -1,10 +1,23 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), VitePWA({
+    registerType: 'autoUpdate' as const,
+    workbox: {
+      maximumFileSizeToCacheInBytes: 15 * 1024 * 1024, // 15MB
+      globPatterns: ['**/*.{js,css,html,ico,png,svg,wasm}']
+    },
+    manifest: {
+      name: 'Surreal Notes',
+      short_name: 'SurrealNotes',
+      description: 'A local-first note-taking app',
+      theme_color: '#ffffff',
+    }
+  })],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
