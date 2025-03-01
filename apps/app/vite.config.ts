@@ -15,7 +15,7 @@ export default defineConfig({
       name: 'Surreal Notes',
       short_name: 'SurrealNotes',
       description: 'A local-first note-taking app',
-      theme_color: '#ffffff',
+      theme_color: '#000000',
     }
   })],
   resolve: {
