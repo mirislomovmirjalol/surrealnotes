@@ -28,7 +28,7 @@ export function Providers({ children }: PropsWithChildren) {
       <ThemeProvider defaultTheme="system" storageKey="surreal-notes-theme">
         <SidebarProvider>
           {children}
-          <ReactQueryDevtools initialIsOpen={false} />
+          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         </SidebarProvider>
       </ThemeProvider>
     </QueryClientProvider>
