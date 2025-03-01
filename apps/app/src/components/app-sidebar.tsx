@@ -9,44 +9,27 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
+  SidebarMenuSkeleton,
 } from "@workspace/ui/components/sidebar"
 import { Button } from "@workspace/ui/components/button"
-import { Link, useNavigate } from "react-router-dom"
-import { useCreateNote } from "@/hooks/notes"
-
-const data = {
-  navMain: [
-    {
-      title: "Notes",
-      url: "#",
-      items: [
-        {
-          title: "Notes",
-          url: "/",
-        },
-        {
-          title: "New Note",
-          url: "/new",
-        },
-      ],
-    },
-  ],
-}
+import { Link, useNavigate, useParams } from "react-router-dom"
+import { useCreateNote, useGetNotes } from "@/hooks/notes"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { mutate: createNote, isPending } = useCreateNote()
   const navigate = useNavigate()
+  const { data: notes, isLoading } = useGetNotes()
+  const { id } = useParams()
 
   return (
     <Sidebar variant="floating" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg">
-              SurrealNotes
+            <SidebarMenuButton size="lg" asChild>
+              <Link to="/" className="text-xl font-bold">
+                Surreal Notes
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -64,26 +47,36 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu className="gap-2">
-            {data.navMain.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton asChild>
-                  <Link to={item.url} className="font-medium">
-                    {item.title}
-                  </Link>
+            {isLoading ? (
+              // Show skeletons while loading
+              Array.from({ length: 5 }).map((_, i) => (
+                <SidebarMenuItem key={i}>
+                  <SidebarMenuSkeleton />
+                </SidebarMenuItem>
+              ))
+            ) : notes?.length ? (
+              // Show notes
+              notes.map((note) => (
+                <SidebarMenuItem key={note.id.toString()}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={id === note.id.toString()}
+                    tooltip={note.title}
+                  >
+                    <Link to={`/${note.id.id}`}>
+                      {note.title}
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))
+            ) : (
+              // Show empty state
+              <SidebarMenuItem>
+                <SidebarMenuButton disabled>
+                  No notes yet
                 </SidebarMenuButton>
-                {item.items?.length ? (
-                  <SidebarMenuSub className="ml-0 border-l-0 px-1.5">
-                    {item.items.map((item) => (
-                      <SidebarMenuSubItem key={item.title}>
-                        <SidebarMenuSubButton asChild isActive={item.url === window.location.pathname}>
-                          <Link to={item.url}>{item.title}</Link>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    ))}
-                  </SidebarMenuSub>
-                ) : null}
               </SidebarMenuItem>
-            ))}
+            )}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
