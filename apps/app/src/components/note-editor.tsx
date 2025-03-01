@@ -15,7 +15,7 @@ export function NoteEditor({ note }: { note: Note }) {
     content: note.content,
     editorProps: {
       attributes: {
-        class: 'prose prose-sm max-w-none focus:outline-none min-h-[calc(100vh-5rem)]'
+        class: 'prose prose-sm max-w-none focus:outline-none min-h-[calc(100vh-5rem)] text-foreground'
       }
     },
     onUpdate: ({ editor }) => updateNote({
