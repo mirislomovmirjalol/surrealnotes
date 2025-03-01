@@ -6,7 +6,6 @@ import { Skeleton } from '@workspace/ui/components/skeleton'
 export default function NotesPage() {
   const navigate = useNavigate()
   const { data: notes, isLoading } = useGetNotes()
-  const { mutate: createNote, isPending } = useCreateNote()
 
   if (isLoading) {
     return (
@@ -31,8 +30,11 @@ export default function NotesPage() {
           {notes.map(note => <NoteCard key={note.id.toString()} note={note} />)}
         </div>
       ) : (
-        <div className="text-center text-muted-foreground py-8">
-          No notes yet. Create one to get started!
+        <div className="text-center text-muted-foreground py-32 space-y-4">
+          <div>
+            <h5 className="text-sm">No notes yet.</h5>
+            <p className="text-sm">Create one to get started!</p>
+          </div>
         </div>
       )}
     </div>
