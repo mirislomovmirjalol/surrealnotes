@@ -1,8 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { AppSidebar } from '@/components/app-sidebar'
-import { SidebarTrigger } from '@workspace/ui/components/sidebar'
 import { Providers } from '@/components/providers'
-import { MobileNewNote } from '@/components/mobile-new-note'
+import { MobileMenu } from '@/components/mobile-menu'
 
 export default function RootLayout() {
   return (
@@ -11,7 +10,7 @@ export default function RootLayout() {
       <main className="flex-1">
         <Outlet />
       </main>
-      <MobileNewNote />
+      <MobileMenu />
     </Providers>
   )
 } 
