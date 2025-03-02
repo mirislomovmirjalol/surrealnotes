@@ -36,7 +36,7 @@ export function NoteLayout({
             Back
           </Button>
 
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             {editor && (
               <EditorToolbar editor={editor} onDelete={onDelete} isDeleting={isDeleting} />
             )}
@@ -58,7 +58,7 @@ export function NoteLayout({
 
 
 
-      <div className="flex-1 overflow-auto">
+      <div className="flex-1 overflow-auto px-4">
         {children}
       </div>
     </div>
