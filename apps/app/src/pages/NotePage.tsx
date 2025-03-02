@@ -1,11 +1,16 @@
-import { useParams } from 'react-router-dom'
-import { useGetNote } from '@/hooks/notes'
+import { useParams, useNavigate } from 'react-router-dom'
+import { useGetNote, useDeleteNote } from '@/hooks/notes'
 import { NoteEditor } from '@/components/note-editor'
 import { NoteLayout } from '@/layouts/note-layout'
+import { useState } from 'react'
+import { Editor } from '@tiptap/react'
 
 export default function NotePage() {
   const { ulid } = useParams()
+  const navigate = useNavigate()
   const { data: note, isLoading } = useGetNote(ulid as string)
+  const { mutate: deleteNote, isPending } = useDeleteNote()
+  const [editor, setEditor] = useState<Editor | null>(null)
 
   if (isLoading) {
     return (
@@ -27,10 +32,28 @@ export default function NotePage() {
     )
   }
 
+  const handleDelete = () => {
+    deleteNote(note.id.id.toString(), {
+      onSuccess: () => navigate('/')
+    })
+  }
+
   return (
-    <NoteLayout note={note}>
+    <NoteLayout
+      note={{
+        updatedAt: note.updatedAt,
+        id: { id: note.id.id.toString() }
+      }}
+      editor={editor}
+      onDelete={handleDelete}
+      isDeleting={isPending}
+    >
       <div className="container mx-auto">
-        <NoteEditor note={note} />
+        <NoteEditor
+          key={note.id.id.toString()}
+          note={note}
+          onEditorReady={setEditor}
+        />
       </div>
     </NoteLayout>
   )
