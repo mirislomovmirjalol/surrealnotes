@@ -1,21 +1,38 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import { useUpdateNote, useDeleteNote } from '@/hooks/notes'
+import { useUpdateNote } from '@/hooks/notes'
 import type { Note } from '@/types'
-import { useNavigate } from 'react-router-dom'
-import { DeleteConfirmModal } from './delete-confirm-modal'
+import TaskList from '@tiptap/extension-task-list'
+import TaskItem from '@tiptap/extension-task-item'
+import { useEffect } from 'react'
 
-export function NoteEditor({ note }: { note: Note }) {
-  const navigate = useNavigate()
+interface NoteEditorProps {
+  note: Note
+  onEditorReady?: (editor: ReturnType<typeof useEditor>) => void
+}
+
+export function NoteEditor({ note, onEditorReady }: NoteEditorProps) {
   const { mutate: updateNote } = useUpdateNote()
-  const { mutate: deleteNote, isPending } = useDeleteNote()
 
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit,
+      TaskList.configure({
+        HTMLAttributes: {
+          class: 'task-list',
+        },
+      }),
+      TaskItem.configure({
+        nested: true,
+        HTMLAttributes: {
+          class: 'task-item',
+        },
+      }),
+    ],
     content: note.content,
     editorProps: {
       attributes: {
-        class: 'prose prose-sm max-w-none focus:outline-none min-h-[calc(100vh-5rem)] text-foreground'
+        class: 'prose prose-sm max-w-none focus:outline-none min-h-[calc(100vh-12rem)] text-foreground typography'
       }
     },
     onUpdate: ({ editor }) => updateNote({
@@ -25,9 +42,23 @@ export function NoteEditor({ note }: { note: Note }) {
     }),
   })
 
+  // this effect is to update the editor content when the note changes. tiptap is not updating the content when the note changes.
+  useEffect(() => {
+    if (editor && note.content !== editor.getHTML()) {
+      editor.commands.setContent(note.content)
+    }
+  }, [editor, note.id, note.content])
+
+  // Notify parent when editor is ready
+  useEffect(() => {
+    if (editor && onEditorReady) {
+      onEditorReady(editor)
+    }
+  }, [editor, onEditorReady])
+
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between border-b pb-4 gap-2">
+      <div className="flex items-center justify-between py-4 gap-2">
         <h1
           contentEditable
           suppressContentEditableWarning
@@ -41,17 +72,10 @@ export function NoteEditor({ note }: { note: Note }) {
               })
             }
           }}
-          className="text-2xl font-bold focus:outline-none border-b border-transparent focus:border-border w-full"
+          className="text-2xl font-medium focus:outline-none border-b border-transparent focus:border-border w-full"
         >
           {note.title}
         </h1>
-        <DeleteConfirmModal onDelete={() => {
-          deleteNote(note.id.id.toString(), {
-            onSuccess: () => navigate('/')
-          })
-        }}
-          isDeleting={isPending}
-        />
       </div>
       <EditorContent editor={editor} />
     </div>

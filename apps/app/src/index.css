@@ -1,1 +1,29 @@
 @import '@workspace/ui/styles/globals.css';
+
+.typography strong {
+  @apply font-bold text-foreground;
+}
+
+.typography ul {
+  @apply list-none ml-0 pl-0;
+}
+
+.typography .task-item {
+  @apply flex items-center gap-2;
+}
+
+.typography li * {
+  @apply flex items-center gap-2;
+}
+
+.typography input[type="checkbox"] {
+  @apply w-5 h-5 rounded-md border-2 relative border-border accent-primary cursor-pointer transition-all duration-200 appearance-none focus:ring-2 focus:ring-primary/30 focus:ring-offset-1 checked:bg-primary checked:border-primary checked:text-primary-foreground;
+}
+
+.typography input[type="checkbox"]:checked::after {
+  @apply absolute inset-0 flex items-center justify-center text-primary-foreground text-xs font-bold content-['✓'];
+}
+
+.typography .task-item[data-checked="true"] p {
+  @apply text-muted-foreground line-through;
+}

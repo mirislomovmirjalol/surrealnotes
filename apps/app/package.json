@@ -15,6 +15,8 @@
     "@surrealdb/wasm": "^1.2.0",
     "@tanstack/react-query": "^5.0.0",
     "@tanstack/react-query-devtools": "^5.66.11",
+    "@tiptap/extension-task-item": "^2.11.5",
+    "@tiptap/extension-task-list": "^2.11.5",
     "@tiptap/pm": "^2.11.5",
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
