@@ -27,3 +27,7 @@
 .typography .task-item[data-checked="true"] p {
   @apply text-muted-foreground line-through;
 }
+
+.typography p {
+  @apply text-base;
+}
